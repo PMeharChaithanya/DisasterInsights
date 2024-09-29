@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earthquake Calculators</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="top-right">
+        <a href="index.html" class="button">Back to Home</a>
+    </div>
+    <h1>Earthquake Calculators</h1>
+
+    <div class="calculator">
+        <h2>Earthquake Energy Calculator</h2>
+        <input type="number" id="magnitude-input" placeholder="Enter earthquake magnitude">
+        <button id="calculate-energy-btn">Calculate Energy</button>
+        <div id="energy-result" class="result-container"></div>
+    </div>
+
+    <div class="calculator">
+        <h2>Seismic Moment Calculator</h2>
+        <input type="number" id="seismic-magnitude-input" placeholder="Enter earthquake magnitude">
+        <button id="calculate-moment-btn">Calculate Seismic Moment</button>
+        <div id="moment-result" class="result-container"></div>
+    </div>
+
+    <div class="calculator">
+        <h2>Richter Scale to Energy Conversion</h2>
+        <input type="number" id="richter-magnitude-input" placeholder="Enter Richter scale magnitude">
+        <button id="calculate-tnt-btn">Convert to TNT Equivalent</button>
+        <div id="tnt-result" class="result-container"></div>
+    </div>
+
+    <div class="calculator">
+        <h2>Peak Ground Acceleration (PGA) Calculator</h2>
+        <input type="number" id="pga-magnitude-input" placeholder="Enter earthquake magnitude">
+        <input type="number" id="distance-input" placeholder="Enter distance from epicenter (km)">
+        <button id="calculate-pga-btn">Calculate PGA</button>
+        <div id="pga-result" class="result-container"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
