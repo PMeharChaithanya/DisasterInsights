@@ -43,13 +43,18 @@ function fetchDisasterData(query) {
 if (elementExists('calculate-energy-btn')) {
     document.getElementById('calculate-energy-btn').addEventListener('click', function() {
         let magnitude = parseFloat(document.getElementById('magnitude-input').value);
+        let resultElement = document.getElementById('energy-result');
+        
         if (!isNaN(magnitude)) {
-            let energy = calculateEarthquakeEnergy(magnitude);
-            document.getElementById('energy-result').innerHTML = `
-                <p>Energy released by an earthquake of magnitude ${magnitude} is approximately ${energy.toExponential(3)} joules.</p>
-            `;
+            resultElement.innerHTML = '<p>Calculating...</p>';
+            setTimeout(() => {
+                let energy = calculateEarthquakeEnergy(magnitude);
+                resultElement.innerHTML = `
+                    <p>Energy released by an earthquake of magnitude ${magnitude} is approximately ${energy.toExponential(3)} joules.</p>
+                `;
+            }, 500);
         } else {
-            document.getElementById('energy-result').innerHTML = `<p>Please enter a valid magnitude.</p>`;
+            resultElement.innerHTML = `<p>Please enter a valid magnitude.</p>`;
         }
     });
 }
@@ -84,15 +89,20 @@ if (elementExists('calculate-tnt-btn')) {
 
 if (elementExists('calculate-pga-btn')) {
     document.getElementById('calculate-pga-btn').addEventListener('click', function() {
-        let magnitude = parseFloat(document.getElementById('pga-magnitude-input').value);
-        let distance = parseFloat(document.getElementById('distance-input').value);
-        if (!isNaN(magnitude) && !isNaN(distance)) {
-            let pga = calculatePGA(magnitude, distance);
-            document.getElementById('pga-result').innerHTML = `
-                <p>Peak ground acceleration for an earthquake of magnitude ${magnitude} at a distance of ${distance} km is approximately ${pga.toExponential(3)} g.</p>
-            `;
+        let magnitude = document.getElementById('pga-magnitude-input').value;
+        let distance = document.getElementById('distance-input').value;
+        let resultElement = document.getElementById('pga-result');
+
+        if (validateInput(magnitude, 0, 10) && validateInput(distance, 0, 1000)) {
+            resultElement.innerHTML = '<p>Calculating...</p>';
+            setTimeout(() => {
+                let pga = calculatePGA(parseFloat(magnitude), parseFloat(distance));
+                resultElement.innerHTML = `
+                    <p>Peak ground acceleration for an earthquake of magnitude ${magnitude} at a distance of ${distance} km is approximately ${pga.toExponential(3)} g.</p>
+                `;
+            }, 500);
         } else {
-            document.getElementById('pga-result').innerHTML = `<p>Please enter valid values for magnitude and distance.</p>`;
+            resultElement.innerHTML = `<p>Please enter valid values. Magnitude should be between 0 and 10, and distance should be between 0 and 1000 km.</p>`;
         }
     });
 }
@@ -113,4 +123,10 @@ function calculateTNTEquivalent(magnitude) {
 function calculatePGA(magnitude, distance) {
     // This is a simplified formula and may not be accurate for all scenarios
     return 1230 * Math.exp(0.8 * magnitude) / (distance + 10) ** 1.6;
+}
+
+// Add this new function for input validation
+function validateInput(input, min, max) {
+    let value = parseFloat(input);
+    return !isNaN(value) && value >= min && value <= max;
 }

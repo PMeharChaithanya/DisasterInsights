@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "java",
+          "name": "Launch MySQLConnection",
+          "request": "launch",
+          "mainClass": "MySQLConnection",
+          "projectName": "app project",
+          "classpath": [
+              "${workspaceFolder}",
+              "${workspaceFolder}/lib/mysql-connector-j-8.0.31.jar"
+          ]
+      }
+  ]
+}
